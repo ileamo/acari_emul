@@ -1,6 +1,5 @@
 #!/bin/sh
 
-
 # Network
 docker network create acari-network
 
@@ -10,7 +9,7 @@ docker run --rm -it \
 --network acari-network \
 -e POSTGRES_PASSWORD=postgres \
 -e POSTGRES_DB=acari_server_prod \
--e PGDATA=/var/lib/postgresql-acari/data/pgdata \
+-e PGDATA=/var/lib/postgresql-a/data/pgdata \
 -d ileamo/acari-server-db:init-25
 
 # Server
