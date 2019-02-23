@@ -1,5 +1,6 @@
 #!/bin/sh
 
+
 # Network
 docker network create acari-network
 
