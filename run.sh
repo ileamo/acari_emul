@@ -29,6 +29,7 @@ docker run --rm -it \
 --device /dev/net/tun:/dev/net/tun \
 -d ileamo/acari-client
 
+# Start SSHD on client
 docker exec -it \
 --user root \
 acari-client /usr/sbin/sshd
