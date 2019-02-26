@@ -36,3 +36,10 @@ docker ps
 ```bash
 docker rmi ileamo/acari-server-db:init-25 ileamo/acari-client ileamo/acari-server
 ```
+
+## Возможные проблемы
+При обращении к серверу выдается ошибка
+```
+Internal Server Error
+```
+После запуска сервера(./run.sh) надо подождать 30-60 сек, чтобы все проинициировалось.
