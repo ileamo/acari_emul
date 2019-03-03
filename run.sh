@@ -19,7 +19,7 @@ docker run --rm -it \
 -p 50020:50020 \
 --cap-add=NET_ADMIN \
 --device /dev/net/tun:/dev/net/tun \
--d ileamo/acari-server console
+-d ileamo/acari-server foreground
 
 # Client
 docker run --rm -it \
@@ -28,8 +28,3 @@ docker run --rm -it \
 --cap-add=NET_ADMIN \
 --device /dev/net/tun:/dev/net/tun \
 -d ileamo/acari-client
-
-# Start SSHD on client
-docker exec -it \
---user root \
-acari-client /usr/sbin/sshd
