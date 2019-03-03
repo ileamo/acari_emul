@@ -1,5 +1,10 @@
 #!/bin/sh
 
+#Pull images
+docker pull ileamo/acari-client
+docker pull ileamo/acari-server
+docker pull ileamo/acari-server-db:init-25
+
 # Network
 docker network create acari-network
 
