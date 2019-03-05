@@ -21,6 +21,7 @@ docker run --rm -it \
 docker run --rm -it \
 --name acari-server \
 --network acari-network \
+-e DB_HOST=acari-server-db \
 -p 50020:50020 \
 --cap-add=NET_ADMIN \
 --device /dev/net/tun:/dev/net/tun \
