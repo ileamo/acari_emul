@@ -29,6 +29,7 @@ docker run --rm -it \
 -e DB_HOST=acari-server-real-db \
 -p 51020:50020 \
 -p 51019:50019 \
+-v /var/log/acari_server:/tmp/app/log \
 --cap-add=NET_ADMIN \
 --device /dev/net/tun:/dev/net/tun \
 -d ileamo/acari-server foreground
