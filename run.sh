@@ -23,6 +23,7 @@ docker run --rm -it \
 --network acari-network \
 -e DB_HOST=acari-server-db \
 -p 50020:50020 \
+-v /var/log/acari_server:/tmp/app/log \
 --cap-add=NET_ADMIN \
 --device /dev/net/tun:/dev/net/tun \
 -d ileamo/acari-server foreground
@@ -31,6 +32,7 @@ docker run --rm -it \
 docker run --rm -it \
 --name acari-client \
 --network acari-network \
+-v /var/log/acari_client:/tmp/app/log \
 --cap-add=NET_ADMIN \
 --device /dev/net/tun:/dev/net/tun \
 -d ileamo/acari-client
