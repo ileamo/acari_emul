@@ -7,7 +7,7 @@
 Во время демонстрации будут запущены контейнеры docker с базой данных, сервером и эмулятором 25 клиентов.
 
 ## Требования к хосту:
-должен быть установлен [docker](https://docs.docker.com/install/#support)
+Должен быть установлен [docker](https://docs.docker.com/install/#support)
 
 ## Запуск
 ```bash
