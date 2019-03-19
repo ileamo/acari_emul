@@ -1,6 +1,6 @@
 #!/bin/sh
 
-docker run --rm -it \
+docker run -t \
       --name zabbix-postgres-server \
       -e POSTGRES_USER="zabbix" \
       -e POSTGRES_PASSWORD="zabbix" \
@@ -8,7 +8,7 @@ docker run --rm -it \
       -v /var/lib/postgresql/docker/zabbix/data:/var/lib/postgresql/data \
       -d postgres:latest
 
-docker run --rm -it \
+docker run -t \
       --name zabbix-server-pgsql \
       -e DB_SERVER_HOST="zabbix-postgres-server" \
       -e POSTGRES_USER="zabbix" \
@@ -18,7 +18,7 @@ docker run --rm -it \
       -p 10051:10051 \
       -d zabbix/zabbix-server-pgsql:latest
 
-docker run --rm -it \
+docker run -t \
       --name zabbix-web-nginx-pgsql \
       -e DB_SERVER_HOST="zabbix-postgres-server" \
       -e POSTGRES_USER="zabbix" \
