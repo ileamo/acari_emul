@@ -27,6 +27,6 @@ docker run -t \
       -e ZBX_SERVER_NAME="Zabbix NSG" \
       --link zabbix-postgres-server:postgres \
       --link zabbix-server-pgsql:zabbix-server \
-      -p 10080:80 \
+      -p 80:80 \
       -v /etc/ssl/nginx:/etc/ssl/nginx:ro \
       -d zabbix/zabbix-web-nginx-pgsql:latest
