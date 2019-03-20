@@ -6,6 +6,7 @@ docker run -t \
       -e POSTGRES_PASSWORD="zabbix" \
       -e POSTGRES_DB="zabbix_pwd" \
       -v /var/lib/postgresql/docker/zabbix/data:/var/lib/postgresql/data \
+      -v /etc/localtime:/etc/localtime:ro \
       -d postgres:latest
 
 docker run -t \
@@ -16,6 +17,7 @@ docker run -t \
       -e POSTGRES_DB="zabbix_pwd" \
       --link zabbix-postgres-server:postgres \
       -p 10051:10051 \
+      -v /etc/localtime:/etc/localtime:ro \
       -d zabbix/zabbix-server-pgsql:latest
 
 docker run -t \
@@ -29,4 +31,5 @@ docker run -t \
       --link zabbix-server-pgsql:zabbix-server \
       -p 80:80 \
       -v /etc/ssl/nginx:/etc/ssl/nginx:ro \
+      -v /etc/localtime:/etc/localtime:ro \
       -d zabbix/zabbix-web-nginx-pgsql:latest
