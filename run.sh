@@ -10,7 +10,7 @@ docker network create acari-network
 
 # ***** ZABBIX ******
 # Zabbix DB
-docker run -t \
+docker run -t --rm\
   --name zabbix-postgres-server \
   --network acari-network \
   -e POSTGRES_USER="zabbix" \
@@ -22,7 +22,7 @@ docker run -t \
   -d postgres:latest
 
 # Zabbix server
-docker run -t \
+docker run -t --rm\
   --name zabbix-server-pgsql \
   --network acari-network \
   -e DB_SERVER_HOST="zabbix-postgres-server" \
@@ -35,7 +35,7 @@ docker run -t \
   -d zabbix/zabbix-server-pgsql:latest
 
 # Zabbix WEB
-docker run -t \
+docker run -t --rm\
   --name zabbix-web-nginx-pgsql \
   --network acari-network \
   -e DB_SERVER_HOST="zabbix-postgres-server" \
@@ -52,6 +52,7 @@ docker run -t \
   -d zabbix/zabbix-web-nginx-pgsql:latest
 
 
+# ***** ACARI *****
 
 # PostgreSQL
 docker run --rm -it \
