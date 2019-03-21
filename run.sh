@@ -43,6 +43,7 @@ docker run -t --rm\
   -e POSTGRES_PASSWORD="zabbix" \
   -e POSTGRES_DB="zabbix_pwd" \
   -e ZBX_SERVER_NAME="Zabbix NSG" \
+  -e PHP_TZ="Europe/Moscow" \
   --link zabbix-postgres-server:postgres \
   --link zabbix-server-pgsql:zabbix-server \
   -p 10080:80 \
