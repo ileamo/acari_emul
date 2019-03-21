@@ -18,6 +18,7 @@ docker run -t \
   -e POSTGRES_DB="zabbix_pwd" \
   -v /var/lib/postgresql/docker/zabbix/data:/var/lib/postgresql/data \
   -v /etc/localtime:/etc/localtime:ro \
+  -v /etc/timezone:/etc/timezone:ro \
   -d postgres:latest
 
 # Zabbix server
@@ -30,6 +31,7 @@ docker run -t \
   -e POSTGRES_DB="zabbix_pwd" \
   --link zabbix-postgres-server:postgres \
   -v /etc/localtime:/etc/localtime:ro \
+  -v /etc/timezone:/etc/timezone:ro \
   -d zabbix/zabbix-server-pgsql:latest
 
 # Zabbix WEB
@@ -46,6 +48,7 @@ docker run -t \
   -p 10080:80 \
   -v /etc/ssl/nginx:/etc/ssl/nginx:ro \
   -v /etc/localtime:/etc/localtime:ro \
+  -v /etc/timezone:/etc/timezone:ro \
   -d zabbix/zabbix-web-nginx-pgsql:latest
 
 
