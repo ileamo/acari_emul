@@ -9,9 +9,10 @@ docker network create acari-network
 
 # ***** ZABBIX ******
 # Zabbix DB
-docker run -t --rm\
+docker run -t \
   --name zabbix-postgres-server \
   --network acari-network \
+  --restart unless-stopped \
   -e POSTGRES_USER="zabbix" \
   -e POSTGRES_PASSWORD="zabbix" \
   -e POSTGRES_DB="zabbix_pwd" \
@@ -20,9 +21,10 @@ docker run -t --rm\
   -d postgres:11.2-alpine
 
 # Zabbix server
-docker run -t --rm\
+docker run -t \
   --name zabbix-server-pgsql \
   --network acari-network \
+  --restart unless-stopped \
   -e DB_SERVER_HOST="zabbix-postgres-server" \
   -e POSTGRES_USER="zabbix" \
   -e POSTGRES_PASSWORD="zabbix" \
@@ -32,9 +34,10 @@ docker run -t --rm\
   -d zabbix/zabbix-server-pgsql:latest
 
 # Zabbix WEB
-docker run -t --rm\
+docker run -t \
   --name zabbix-web-nginx-pgsql \
   --network acari-network \
+  --restart unless-stopped \
   -e DB_SERVER_HOST="zabbix-postgres-server" \
   -e POSTGRES_USER="zabbix" \
   -e POSTGRES_PASSWORD="zabbix" \
@@ -52,33 +55,39 @@ docker run -t --rm\
 # ***** ACARI *****
 
 # PostgreSQL
-docker run --rm -it \
---name acari-server-db \
---network acari-network \
--e POSTGRES_PASSWORD=postgres \
--e POSTGRES_DB=acari_server_prod \
--v /var/lib/postgresql/docker/acari-server/data:/var/lib/postgresql/data \
--v /etc/localtime:/etc/localtime:ro \
--d postgres:11.2-alpine
+docker run -t \
+  --name acari-server-db \
+  --network acari-network \
+  --restart unless-stopped \
+  -e POSTGRES_PASSWORD=postgres \
+  -e POSTGRES_DB=acari_server_prod \
+  -v /var/lib/postgresql/docker/acari-server/data:/var/lib/postgresql/data \
+  -v /etc/localtime:/etc/localtime:ro \
+  -d postgres:11.2-alpine
 
 # Server
-docker run --rm -it \
---name acari-server \
---network acari-network \
--e DB_HOST=acari-server-db \
--p 50020:50020 \
--v /var/log/acari_server:/tmp/app/log \
--v /etc/localtime:/etc/localtime:ro \
---cap-add=NET_ADMIN \
---device /dev/net/tun:/dev/net/tun \
--d ileamo/acari-server foreground
+docker run -t \
+  --name acari-server \
+  --network acari-network \
+  --restart unless-stopped \
+  -e DB_HOST=acari-server-db \
+  -p 50020:50020 \
+  -v /var/log/acari_server:/tmp/app/log \
+  -v /etc/localtime:/etc/localtime:ro \
+  --link acari-server-db \
+  --link zabbix-web-nginx-pgsql \
+  --cap-add=NET_ADMIN \
+  --device /dev/net/tun:/dev/net/tun \
+  -d ileamo/acari-server foreground
 
 # Client
-docker run --rm -it \
---name acari-client \
---network acari-network \
--v /var/log/acari_client:/tmp/app/log \
--v /etc/localtime:/etc/localtime:ro \
---cap-add=NET_ADMIN \
---device /dev/net/tun:/dev/net/tun \
--d ileamo/acari-client
+docker run -t \
+  --name acari-client \
+  --network acari-network \
+  --restart unless-stopped \
+  -v /var/log/acari_client:/tmp/app/log \
+  -v /etc/localtime:/etc/localtime:ro \
+  --link acari-server \
+  --cap-add=NET_ADMIN \
+  --device /dev/net/tun:/dev/net/tun \
+  -d ileamo/acari-client
