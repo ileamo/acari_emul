@@ -16,7 +16,7 @@ docker run -t \
   -e POSTGRES_USER="zabbix" \
   -e POSTGRES_PASSWORD="zabbix" \
   -e POSTGRES_DB="zabbix_pwd" \
-  -v /var/lib/postgresql/docker/zabbix/data:/var/lib/postgresql/data \
+  -v /var/lib/postgresql/docker/zabbix-acari-server/data:/var/lib/postgresql/data \
   -v /etc/localtime:/etc/localtime:ro \
   -d postgres:11.2-alpine
 
