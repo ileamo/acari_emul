@@ -3,7 +3,6 @@
 #Pull images
 docker pull ileamo/acari-client
 docker pull ileamo/acari-server
-docker pull ileamo/acari-server-db:init-25
 
 # Network
 docker network create acari-network
@@ -18,8 +17,7 @@ docker run -t --rm\
   -e POSTGRES_DB="zabbix_pwd" \
   -v /var/lib/postgresql/docker/zabbix/data:/var/lib/postgresql/data \
   -v /etc/localtime:/etc/localtime:ro \
-  -v /etc/timezone:/etc/timezone:ro \
-  -d postgres:latest
+  -d postgres:11.2-alpine
 
 # Zabbix server
 docker run -t --rm\
@@ -31,7 +29,6 @@ docker run -t --rm\
   -e POSTGRES_DB="zabbix_pwd" \
   --link zabbix-postgres-server:postgres \
   -v /etc/localtime:/etc/localtime:ro \
-  -v /etc/timezone:/etc/timezone:ro \
   -d zabbix/zabbix-server-pgsql:latest
 
 # Zabbix WEB
@@ -49,7 +46,6 @@ docker run -t --rm\
   -p 10080:80 \
   -v /etc/ssl/nginx:/etc/ssl/nginx:ro \
   -v /etc/localtime:/etc/localtime:ro \
-  -v /etc/timezone:/etc/timezone:ro \
   -d zabbix/zabbix-web-nginx-pgsql:latest
 
 
@@ -61,9 +57,9 @@ docker run --rm -it \
 --network acari-network \
 -e POSTGRES_PASSWORD=postgres \
 -e POSTGRES_DB=acari_server_prod \
--e PGDATA=/var/lib/postgresql-a/data/pgdata \
+-v /var/lib/postgresql/docker/acari-server/data:/var/lib/postgresql/data \
 -v /etc/localtime:/etc/localtime:ro \
--d ileamo/acari-server-db:init-25
+-d postgres:11.2-alpine
 
 # Server
 docker run --rm -it \
