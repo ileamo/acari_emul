@@ -1,2 +1,2 @@
 #!/bin/sh
-docker stop zabbix-web-nginx-pgsql zabbix-server-pgsql zabbix-postgres-server
+docker stop zabbix-web-nginx-pgsql-main zabbix-server-pgsql-main zabbix-postgres-server-main
