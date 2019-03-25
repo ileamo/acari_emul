@@ -8,6 +8,7 @@ docker pull ileamo/acari-server
 docker network create acari-network
 
 # ***** ZABBIX ******
+
 # Zabbix DB
 docker run -t \
   --name zabbix-postgres-server \
@@ -50,6 +51,16 @@ docker run -t \
   -v /etc/ssl/nginx:/etc/ssl/nginx:ro \
   -v /etc/localtime:/etc/localtime:ro \
   -d zabbix/zabbix-web-nginx-pgsql:latest
+
+docker run -t \
+  --name acari-zabbix-agent \
+  --network acari-network \
+  --restart unless-stopped \
+  -e ZBX_HOSTNAME="acari-server-1" \
+  -e ZBX_SERVER_HOST="zabbix-server-pgsql" \
+  --link zabbix-server-pgsql:zabbix-server \
+  --privileged \
+  -d zabbix/zabbix-agent:latest
 
 
 # ***** ACARI *****
