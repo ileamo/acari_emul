@@ -47,8 +47,8 @@ docker run -t \
   -e PHP_TZ="Europe/Moscow" \
   --link zabbix-postgres-server:postgres \
   --link zabbix-server-pgsql:zabbix-server \
-  -p 10080:80 \
-  -v /etc/ssl/nginx:/etc/ssl/nginx:ro \
+  -p 10443:443 \
+  -v /etc/ssl/acari:/etc/ssl/nginx:ro \
   -v /etc/localtime:/etc/localtime:ro \
   -d zabbix/zabbix-web-nginx-pgsql:latest
 
@@ -83,6 +83,7 @@ docker run -t \
   --restart unless-stopped \
   -e DB_HOST=acari-server-db \
   -p 50020:50020 \
+  -v /etc/ssl/acari:/etc/ssl/acari:ro \
   -v /var/log/acari_server:/tmp/app/log \
   -v /etc/localtime:/etc/localtime:ro \
   --link acari-server-db \
