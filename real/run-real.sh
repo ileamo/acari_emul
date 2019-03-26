@@ -7,7 +7,8 @@ docker pull ileamo/acari-server
 docker network create acari-network-real
 
 # PostgreSQL
-docker run --rm -it \
+docker run -t \
+--restart unless-stopped \
 --name acari-server-real-db \
 --network acari-network-real \
 -e POSTGRES_PASSWORD=postgres \
@@ -16,14 +17,16 @@ docker run --rm -it \
 -d postgres:11.2
 
 # Migrate & seed
-docker run --rm -it \
+docker run -t \
+--restart unless-stopped \
 --network acari-network-real \
 -e DB_HOST=acari-server-real-db \
 --cap-add=NET_ADMIN \
 ileamo/acari-server seed
 
 # Server
-docker run --rm -it \
+docker run -t \
+--restart unless-stopped \
 --name acari-server-real \
 --network acari-network-real \
 -e DB_HOST=acari-server-real-db \
