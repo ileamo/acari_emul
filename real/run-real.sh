@@ -32,7 +32,9 @@ docker run -t \
 -e DB_HOST=acari-server-real-db \
 -p 51020:50020 \
 -p 51019:50019 \
+-v /etc/ssl/acari:/etc/ssl/acari:ro \
 -v /var/log/acari_server_real:/tmp/app/log \
+-v /etc/localtime:/etc/localtime:ro \
 --cap-add=NET_ADMIN \
 --device /dev/net/tun:/dev/net/tun \
 -d ileamo/acari-server foreground
