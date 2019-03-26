@@ -33,7 +33,7 @@ docker run -t \
       -e PHP_TZ="Europe/Moscow" \
       --link zabbix-postgres-server-main:postgres \
       --link zabbix-server-pgsql-main:zabbix-server \
-      -p 80:80 \
-      -v /etc/ssl/nginx:/etc/ssl/nginx:ro \
+      -p 4443:443 \
+      -v /etc/ssl/acari:/etc/ssl/nginx:ro \
       -v /etc/localtime:/etc/localtime:ro \
       -d zabbix/zabbix-web-nginx-pgsql:latest
