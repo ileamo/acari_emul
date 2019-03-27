@@ -82,7 +82,7 @@ docker run -t \
   --network acari-network \
   --restart unless-stopped \
   -e DB_HOST=acari-server-db \
-  -p 50020:50020 \
+  -p 443:50020 \
   -v /etc/ssl/acari:/etc/ssl/acari:ro \
   -v /var/log/acari_server:/tmp/app/log \
   -v /etc/localtime:/etc/localtime:ro \
