@@ -82,6 +82,8 @@ docker run -t \
   --network acari-network \
   --restart unless-stopped \
   -e DB_HOST=acari-server-db \
+  -e ZBX_API_URL="http://zabbix-web-nginx-pgsql" \
+  -e ZBX_WEB_PORT=10443 \
   -p 443:50020 \
   -v /etc/ssl/acari:/etc/ssl/acari:ro \
   -v /var/log/acari_server:/tmp/app/log \
