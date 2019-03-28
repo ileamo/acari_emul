@@ -35,7 +35,7 @@ docker run -t \
 
 # Zabbix WEB
 docker run -t \
-  --name zabbix-web-nginx-pgsqlreal \
+  --name zabbix-web-nginx-pgsql-real \
   --network acari-network-real \
   --restart unless-stopped \
   -e DB_SERVER_HOST="zabbix-postgres-server-real" \
