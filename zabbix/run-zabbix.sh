@@ -34,6 +34,7 @@ docker run -t \
       --link zabbix-postgres-server-main:postgres \
       --link zabbix-server-pgsql-main:zabbix-server \
       -p 4443:443 \
+      -p 4080:80 \
       -v /etc/ssl/acari:/etc/ssl/nginx:ro \
       -v /etc/localtime:/etc/localtime:ro \
       -d zabbix/zabbix-web-nginx-pgsql:latest
