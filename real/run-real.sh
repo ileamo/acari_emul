@@ -88,10 +88,10 @@ docker run -t \
   -p 51020:50443 \
   -p 51019:50019 \
   -v /etc/ssl/acari:/etc/ssl/acari:ro \
-  -v /var/log/acari_server_real:/tmp/app/log \
+  -v /var/log/acari_server_real:/var/log \
   -v /etc/localtime:/etc/localtime:ro \
   --link acari-server-db-real \
   --link zabbix-web-nginx-pgsql-real \
   --cap-add=NET_ADMIN \
   --device /dev/net/tun:/dev/net/tun \
-  -d ileamo/acari-server foreground
+  -d ileamo/acari-server
