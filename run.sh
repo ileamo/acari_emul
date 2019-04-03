@@ -87,20 +87,21 @@ docker run -t \
   -e ZBX_SND_HOST="zabbix-server-pgsql" \
   -p 443:50443 \
   -v /etc/ssl/acari:/etc/ssl/acari:ro \
-  -v /var/log/acari_server:/tmp/app/log \
+  -v /var/log/acari_server:/var/log \
   -v /etc/localtime:/etc/localtime:ro \
   --link acari-server-db \
   --link zabbix-web-nginx-pgsql \
   --cap-add=NET_ADMIN \
   --device /dev/net/tun:/dev/net/tun \
-  -d ileamo/acari-server foreground
+  -d ileamo/acari-server
 
 # Client
 docker run -t \
   --name acari-client \
   --network acari-network \
   --restart unless-stopped \
-  -v /var/log/acari_client:/tmp/app/log \
+  -e SRV_HOST="acari-server" \
+  -v /var/log/acari_client:/var/log \
   -v /etc/localtime:/etc/localtime:ro \
   --link acari-server \
   --cap-add=NET_ADMIN \
