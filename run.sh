@@ -1,8 +1,8 @@
 #!/bin/sh
 
 #Pull images
-docker pull ileamo/acari-client
-docker pull ileamo/acari-server
+#docker pull ileamo/acari-client
+#docker pull ileamo/acari-server
 
 # Network
 docker network create acari-network
@@ -76,9 +76,11 @@ docker run -t \
   -v /etc/localtime:/etc/localtime:ro \
   -d postgres:11.2-alpine
 
-# Server
+# Server foo
+# --name and --hostname must be the same
 docker run -t \
-  --name acari-server \
+  --name acari-foo \
+  --hostname acari-foo \
   --network acari-network \
   --restart unless-stopped \
   -e DB_HOST=acari-server-db \
@@ -87,13 +89,55 @@ docker run -t \
   -e ZBX_SND_HOST="zabbix-server-pgsql" \
   -p 443:50443 \
   -v /etc/ssl/acari:/etc/ssl/acari:ro \
-  -v /var/log/acari_server:/var/log \
+  -v /var/log/acari_foo:/var/log \
   -v /etc/localtime:/etc/localtime:ro \
   --link acari-server-db \
   --link zabbix-web-nginx-pgsql \
   --cap-add=NET_ADMIN \
   --device /dev/net/tun:/dev/net/tun \
-  -d ileamo/acari-server
+  -d acari-server
+
+# Server bar
+# --name and --hostname must be the same
+docker run -t \
+  --name acari-bar \
+  --hostname acari-bar \
+  --network acari-network \
+  --restart unless-stopped \
+  -e DB_HOST=acari-server-db \
+  -e ZBX_API_URL="http://zabbix-web-nginx-pgsql" \
+  -e ZBX_WEB_PORT=10443 \
+  -e ZBX_SND_HOST="zabbix-server-pgsql" \
+  -p 51443:50443 \
+  -v /etc/ssl/acari:/etc/ssl/acari:ro \
+  -v /var/log/acari_bar:/var/log \
+  -v /etc/localtime:/etc/localtime:ro \
+  --link acari-server-db \
+  --link zabbix-web-nginx-pgsql \
+  --cap-add=NET_ADMIN \
+  --device /dev/net/tun:/dev/net/tun \
+  -d acari-server
+
+# Server baz
+# --name and --hostname must be the same
+docker run -t \
+  --name acari-baz \
+  --hostname acari-baz \
+  --network acari-network \
+  --restart unless-stopped \
+  -e DB_HOST=acari-server-db \
+  -e ZBX_API_URL="http://zabbix-web-nginx-pgsql" \
+  -e ZBX_WEB_PORT=10443 \
+  -e ZBX_SND_HOST="zabbix-server-pgsql" \
+  -p 52443:50443 \
+  -v /etc/ssl/acari:/etc/ssl/acari:ro \
+  -v /var/log/acari_baz:/var/log \
+  -v /etc/localtime:/etc/localtime:ro \
+  --link acari-server-db \
+  --link zabbix-web-nginx-pgsql \
+  --cap-add=NET_ADMIN \
+  --device /dev/net/tun:/dev/net/tun \
+  -d acari-server
 
 # Client
 docker run -t \
@@ -106,4 +150,4 @@ docker run -t \
   --link acari-server \
   --cap-add=NET_ADMIN \
   --device /dev/net/tun:/dev/net/tun \
-  -d ileamo/acari-client
+  -d acari-client
