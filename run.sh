@@ -76,6 +76,13 @@ docker run -t \
   -v /etc/localtime:/etc/localtime:ro \
   -d postgres:11.2-alpine
 
+# Migrate DB
+docker run -t \
+  --network acari-network \
+  -e DB_HOST=acari-server-db \
+  --cap-add=NET_ADMIN \
+  ileamo/acari-server migrate
+
 # Server foo
 # --name and --hostname must be the same
 docker run -t \
@@ -95,7 +102,7 @@ docker run -t \
   --link zabbix-web-nginx-pgsql \
   --cap-add=NET_ADMIN \
   --device /dev/net/tun:/dev/net/tun \
-  -d acari-server
+  -d ileamo/acari-server
 
 # Server bar
 # --name and --hostname must be the same
@@ -116,7 +123,7 @@ docker run -t \
   --link zabbix-web-nginx-pgsql \
   --cap-add=NET_ADMIN \
   --device /dev/net/tun:/dev/net/tun \
-  -d acari-server
+  -d ileamo/acari-server
 
 # Server baz
 # --name and --hostname must be the same
@@ -137,7 +144,7 @@ docker run -t \
   --link zabbix-web-nginx-pgsql \
   --cap-add=NET_ADMIN \
   --device /dev/net/tun:/dev/net/tun \
-  -d acari-server
+  -d ileamo/acari-server
 
 # Client
 docker run -t \
@@ -150,4 +157,4 @@ docker run -t \
   --link acari-server \
   --cap-add=NET_ADMIN \
   --device /dev/net/tun:/dev/net/tun \
-  -d acari-client
+  -d ileamo/acari-client
