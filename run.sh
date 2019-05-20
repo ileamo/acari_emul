@@ -1,8 +1,8 @@
 #!/bin/sh
 
 #Pull images
-#docker pull ileamo/acari-client
-#docker pull ileamo/acari-server
+docker pull ileamo/acari-client
+docker pull ileamo/acari-server
 
 # Network
 docker network create acari-network
