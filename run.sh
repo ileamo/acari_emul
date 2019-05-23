@@ -95,6 +95,7 @@ docker run -t \
   -e ZBX_WEB_PORT=10443 \
   -e ZBX_SND_HOST="zabbix-server-pgsql" \
   -p 443:50443 \
+  -p 51019:50019 \
   -v /etc/ssl/acari:/etc/ssl/acari:ro \
   -v /var/log/acari_foo:/var/log \
   -v /etc/localtime:/etc/localtime:ro \
@@ -115,7 +116,8 @@ docker run -t \
   -e ZBX_API_URL="http://zabbix-web-nginx-pgsql" \
   -e ZBX_WEB_PORT=10443 \
   -e ZBX_SND_HOST="zabbix-server-pgsql" \
-  -p 51443:50443 \
+  -p 52443:50443 \
+  -p 52019:50019 \
   -v /etc/ssl/acari:/etc/ssl/acari:ro \
   -v /var/log/acari_bar:/var/log \
   -v /etc/localtime:/etc/localtime:ro \
@@ -136,7 +138,8 @@ docker run -t \
   -e ZBX_API_URL="http://zabbix-web-nginx-pgsql" \
   -e ZBX_WEB_PORT=10443 \
   -e ZBX_SND_HOST="zabbix-server-pgsql" \
-  -p 52443:50443 \
+  -p 53443:50443 \
+  -p 53019:50019 \
   -v /etc/ssl/acari:/etc/ssl/acari:ro \
   -v /var/log/acari_baz:/var/log \
   -v /etc/localtime:/etc/localtime:ro \
