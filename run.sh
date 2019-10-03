@@ -96,6 +96,8 @@ docker run -t \
   --network acari-network \
   --restart unless-stopped \
   -e DB_HOST=acari-server-db \
+  -e DB_HOSTS_RW="acari-server-db" \
+  -e DB_HOSTS_RO="acari-server-db" \
   -e ZBX_API_URL="http://zabbix-web-nginx-pgsql" \
   -e ZBX_WEB_PORT=10443 \
   -e ZBX_SND_HOST="zabbix-server-pgsql" \
@@ -118,6 +120,8 @@ docker run -t \
   --network acari-network \
   --restart unless-stopped \
   -e DB_HOST=acari-server-db \
+  -e DB_HOSTS_RW="acari-server-db" \
+  -e DB_HOSTS_RO="acari-server-db" \
   -e ZBX_API_URL="http://zabbix-web-nginx-pgsql" \
   -e ZBX_WEB_PORT=10443 \
   -e ZBX_SND_HOST="zabbix-server-pgsql" \
@@ -140,6 +144,8 @@ docker run -t \
   --network acari-network \
   --restart unless-stopped \
   -e DB_HOST=acari-server-db \
+  -e DB_HOSTS_RW="acari-server-db" \
+  -e DB_HOSTS_RO="acari-server-db" \
   -e ZBX_API_URL="http://zabbix-web-nginx-pgsql" \
   -e ZBX_WEB_PORT=10443 \
   -e ZBX_SND_HOST="zabbix-server-pgsql" \
