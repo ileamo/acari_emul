@@ -2,7 +2,7 @@
 
 #Pull images
 docker pull ileamo/acari-client
-docker pull ileamo/acari-server
+docker pull nsgru/bogatka
 
 # Network
 docker network create acari-network
@@ -73,7 +73,7 @@ docker run -t \
   -e POSTGRESQL_REPLICATION_MODE=master \
   -e POSTGRESQL_USERNAME=postgres \
   -e POSTGRESQL_PASSWORD=postgres \
-  -e POSTGRESQL_DATABASE=acari_server_prod \
+  -e POSTGRESQL_DATABASE=bogatka \
   -e POSTGRESQL_REPLICATION_USER=postgres \
   -e POSTGRESQL_REPLICATION_PASSWORD=postgres \
   -v /var/lib/postgresql/docker/acari-server:/bitnami/postgresql \
@@ -86,7 +86,7 @@ docker run -t \
   --network acari-network \
   -e DB_HOST=acari-server-db \
   --cap-add=NET_ADMIN \
-  ileamo/acari-server migrate
+  nsgru/bogatka eval "AcariServer.Release.migrate"
 
 # Server foo
 # --name and --hostname must be the same
@@ -103,14 +103,14 @@ docker run -t \
   -e ZBX_SND_HOST="zabbix-server-pgsql" \
   -p 443:50443 \
   -p 51019:50019 \
-  -v /etc/ssl/acari:/etc/ssl/acari:ro \
+  -v /etc/ssl/acari:/etc/ssl/bogatka:ro \
   -v /var/log/acari_foo:/var/log \
   -v /etc/localtime:/etc/localtime:ro \
   --link acari-server-db \
   --link zabbix-web-nginx-pgsql \
   --cap-add=NET_ADMIN \
   --device /dev/net/tun:/dev/net/tun \
-  -d ileamo/acari-server
+  -d nsgru/bogatka
 
 # Server bar
 # --name and --hostname must be the same
@@ -127,14 +127,14 @@ docker run -t \
   -e ZBX_SND_HOST="zabbix-server-pgsql" \
   -p 52443:50443 \
   -p 52019:50019 \
-  -v /etc/ssl/acari:/etc/ssl/acari:ro \
+  -v /etc/ssl/acari:/etc/ssl/bogatka:ro \
   -v /var/log/acari_bar:/var/log \
   -v /etc/localtime:/etc/localtime:ro \
   --link acari-server-db \
   --link zabbix-web-nginx-pgsql \
   --cap-add=NET_ADMIN \
   --device /dev/net/tun:/dev/net/tun \
-  -d ileamo/acari-server
+  -d nsgru/bogatka
 
 # Server baz
 # --name and --hostname must be the same
@@ -151,14 +151,14 @@ docker run -t \
   -e ZBX_SND_HOST="zabbix-server-pgsql" \
   -p 53443:50443 \
   -p 53019:50019 \
-  -v /etc/ssl/acari:/etc/ssl/acari:ro \
+  -v /etc/ssl/acari:/etc/ssl/bogatka:ro \
   -v /var/log/acari_baz:/var/log \
   -v /etc/localtime:/etc/localtime:ro \
   --link acari-server-db \
   --link zabbix-web-nginx-pgsql \
   --cap-add=NET_ADMIN \
   --device /dev/net/tun:/dev/net/tun \
-  -d ileamo/acari-server
+  -d nsgru/bogatka
 
 # Client
 docker run -t \
